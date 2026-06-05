@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finrisk-platform"
+version = "0.1.0"
+description = "End-to-end ML platform for credit risk and transaction fraud scoring"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26,<3",
+    "pandas>=2.1,<3",
+    "scikit-learn>=1.4,<2",
+    "joblib>=1.3,<2",
+    "pydantic>=2.5,<3",
+    "fastapi>=0.110,<1",
+    "uvicorn[standard]>=0.27,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8,<9",
+    "ruff>=0.5,<1",
+    "httpx>=0.27,<1",
+]
+analysis = [
+    "jupyter>=1,<2",
+    "matplotlib>=3.8,<4",
+    "seaborn>=0.13,<1",
+]
+
+[project.scripts]
+finrisk-generate-data = "finrisk.data.generate:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

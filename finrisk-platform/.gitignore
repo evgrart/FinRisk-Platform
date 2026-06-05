@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.eggs/
+*.egg-info/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+.env
+!.env.example
+
+# Generated datasets and model artifacts
+data/raw/*.csv
+data/processed/*.csv
+artifacts/
+mlruns/
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

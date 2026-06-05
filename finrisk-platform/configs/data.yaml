@@ -1,0 +1,5 @@
+seed: 42
+applications: 50000
+transactions: 150000
+customers: 12000
+output_dir: data/raw
