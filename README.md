@@ -61,6 +61,7 @@ py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -e ".[dev,analysis]"
 python -m finrisk.data.generate --seed 42 --applications 50000 --transactions 150000
+python -m finrisk.data.validate --credit data/raw/credit_applications.csv --transactions data/raw/transactions.csv
 pytest
 ```
 
@@ -73,8 +74,8 @@ pytest
 
 Каждый пункт — отдельный осмысленный коммит:
 
-1. `chore: scaffold FinRisk project and reproducible synthetic data` — текущая часть;
-2. `feat: add data validation and temporal split`;
+1. `chore: scaffold FinRisk project and reproducible synthetic data` — завершено;
+2. `feat: add data validation and temporal split` — текущая часть;
 3. `feat: train calibrated credit risk models`;
 4. `feat: train transaction fraud detector and cost-sensitive threshold`;
 5. `feat: add explanations and model card`;
