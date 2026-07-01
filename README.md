@@ -77,8 +77,8 @@ pytest
 
 1. `chore: scaffold FinRisk project and reproducible synthetic data` — завершено;
 2. `feat: add data validation and temporal split` — текущая часть;
-3. `feat: train calibrated credit risk models` — текущая часть;
-4. `feat: train transaction fraud detector and cost-sensitive threshold`;
+3. `feat: train calibrated credit risk models` — завершено;
+4. `feat: train transaction fraud detector and cost-sensitive threshold` — текущая часть;
 5. `feat: add explanations and model card`;
 6. `feat: expose scoring through FastAPI`;
 7. `feat: add drift monitoring and quality report`;
