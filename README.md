@@ -76,15 +76,23 @@ pytest
 Каждый пункт — отдельный осмысленный коммит:
 
 1. `chore: scaffold FinRisk project and reproducible synthetic data` — завершено;
-2. `feat: add data validation and temporal split` — текущая часть;
+2. `feat: add data validation and temporal split` — завершено;
 3. `feat: train calibrated credit risk models` — завершено;
-4. `feat: train transaction fraud detector and cost-sensitive threshold` — текущая часть;
-5. `feat: add explanations and model card`;
-6. `feat: expose scoring through FastAPI`;
+4. `feat: train transaction fraud detector and cost-sensitive threshold` — завершено;
+5. `feat: expose credit and fraud scoring through FastAPI` — текущая часть;
+6. `feat: add explanations and model card`;
 7. `feat: add drift monitoring and quality report`;
 8. `ci: add tests, lint and Docker deployment`.
 
 Финальный результат должен позволять открыть Swagger, отправить JSON-заявку или транзакцию и получить не только score, но и понятное решение: `approve/review/reject` либо `allow/review/block`.
+
+После обучения моделей сервис запускается командой:
+
+```powershell
+uvicorn finrisk.service.app:app --reload
+```
+
+Swagger будет доступен по адресу `http://localhost:8000/docs`.
 
 ## Что положить в резюме после завершения
 
