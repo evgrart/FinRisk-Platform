@@ -79,8 +79,8 @@ pytest
 2. `feat: add data validation and temporal split` — завершено;
 3. `feat: train calibrated credit risk models` — завершено;
 4. `feat: train transaction fraud detector and cost-sensitive threshold` — завершено;
-5. `feat: expose credit and fraud scoring through FastAPI` — текущая часть;
-6. `feat: add explanations and model card`;
+5. `feat: expose credit and fraud scoring through FastAPI` — завершено;
+6. `feat: add explanations and model card` — текущая часть;
 7. `feat: add drift monitoring and quality report`;
 8. `ci: add tests, lint and Docker deployment`.
 

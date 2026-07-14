@@ -13,6 +13,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 
 from finrisk.models.credit import build_credit_features
+from finrisk.models.explain import credit_reason_codes, fraud_reason_codes
 from finrisk.models.fraud import build_fraud_features
 from finrisk.service.policy import credit_decision, fraud_decision
 
@@ -58,6 +59,7 @@ class ScoreResponse(BaseModel):
     decision: str
     threshold: float = Field(ge=0, le=1)
     model_version: str
+    reasons: list[str]
 
 
 class ModelStore:
@@ -137,6 +139,7 @@ def create_app(
             decision=credit_decision(probability, threshold),
             threshold=threshold,
             model_version=str(bundle.get("selected_model_name", "unknown")),
+            reasons=credit_reason_codes(_credit_frame(request)),
         )
 
     @app.post("/score/transaction", response_model=ScoreResponse)
@@ -153,6 +156,7 @@ def create_app(
             decision=fraud_decision(probability, threshold),
             threshold=threshold,
             model_version=str(bundle.get("selected_model_name", "unknown")),
+            reasons=fraud_reason_codes(_transaction_frame(request)),
         )
 
     return app
