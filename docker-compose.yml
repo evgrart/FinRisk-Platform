@@ -1,0 +1,11 @@
+services:
+  finrisk-api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      FINRISK_CREDIT_MODEL: /app/artifacts/credit/model.joblib
+      FINRISK_FRAUD_MODEL: /app/artifacts/fraud/model.joblib
+    volumes:
+      - ./artifacts:/app/artifacts:ro
+    restart: unless-stopped

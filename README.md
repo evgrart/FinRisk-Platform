@@ -81,8 +81,8 @@ pytest
 4. `feat: train transaction fraud detector and cost-sensitive threshold` — завершено;
 5. `feat: expose credit and fraud scoring through FastAPI` — завершено;
 6. `feat: add explanations and model card` — завершено;
-7. `feat: add drift monitoring and quality report` — текущая часть;
-8. `ci: add tests, lint and Docker deployment`.
+7. `feat: add drift monitoring and quality report` — завершено;
+8. `ci: add tests, lint and Docker deployment` — текущая часть.
 
 Финальный результат должен позволять открыть Swagger, отправить JSON-заявку или транзакцию и получить не только score, но и понятное решение: `approve/review/reject` либо `allow/review/block`.
 
@@ -93,6 +93,15 @@ uvicorn finrisk.service.app:app --reload
 ```
 
 Swagger будет доступен по адресу `http://localhost:8000/docs`.
+
+Для контейнерного запуска после обучения моделей:
+
+```powershell
+docker compose up --build
+```
+
+Каталог `artifacts/` монтируется в контейнер только для чтения, поэтому API
+не может случайно перезаписать модель во время работы.
 
 ## Что положить в резюме после завершения
 
