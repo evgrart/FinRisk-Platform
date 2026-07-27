@@ -21,9 +21,12 @@ def credit_reason_codes(frame: pd.DataFrame) -> list[str]:
         reasons.append("были просрочки за последние 12 месяцев")
     if pd.notna(row.get("debt_to_income")) and row["debt_to_income"] >= 0.45:
         reasons.append("высокая долговая нагрузка")
-    if pd.notna(annual_income) and pd.notna(requested_amount):
-        if requested_amount / max(float(annual_income), 1.0) >= 1.0:
-            reasons.append("запрошенная сумма сопоставима с годовым доходом")
+    if (
+        pd.notna(annual_income)
+        and pd.notna(requested_amount)
+        and requested_amount / max(float(annual_income), 1.0) >= 1.0
+    ):
+        reasons.append("запрошенная сумма сопоставима с годовым доходом")
     if pd.notna(row.get("hard_inquiries_6m")) and row["hard_inquiries_6m"] >= 5:
         reasons.append("много кредитных запросов за последние 6 месяцев")
     return reasons[:4] or ["значимых риск-факторов по правилам не обнаружено"]

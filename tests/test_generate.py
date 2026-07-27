@@ -1,4 +1,8 @@
-from finrisk.data.generate import generate_credit_applications, generate_datasets, generate_transactions
+from finrisk.data.generate import (
+    generate_credit_applications,
+    generate_datasets,
+    generate_transactions,
+)
 
 
 def test_credit_generator_is_reproducible():

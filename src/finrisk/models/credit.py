@@ -33,7 +33,6 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from finrisk.data.split import TemporalSplit, temporal_split
 from finrisk.data.validate import validate_credit_applications
 
-
 TARGET = "default_90d"
 ID_COLUMNS = {"application_id", "customer_id", TARGET, "application_date"}
 

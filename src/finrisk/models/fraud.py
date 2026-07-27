@@ -22,7 +22,6 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from finrisk.data.split import TemporalSplit, temporal_split
 from finrisk.data.validate import validate_transactions
 
-
 TARGET = "is_fraud"
 ID_COLUMNS = {"transaction_id", "customer_id", "transaction_ts", TARGET}
 
