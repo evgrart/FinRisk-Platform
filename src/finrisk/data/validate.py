@@ -85,11 +85,12 @@ def _check_numeric_bounds(
         errors.append(f"{column} contains non-numeric values")
         return
 
-    invalid = values.notna()
+    invalid = pd.Series(False, index=values.index)
     if lower is not None:
-        invalid &= values < lower
+        invalid |= values < lower
     if upper is not None:
-        invalid &= values > upper
+        invalid |= values > upper
+    invalid &= values.notna()
     if invalid.any():
         limits = []
         if lower is not None:
