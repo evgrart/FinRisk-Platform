@@ -37,7 +37,7 @@ data validation -> feature pipeline -> model training -> calibration
 ## Структура репозитория
 
 ```text
-finrisk-platform/
+FinRisk-Platform/
 ├── configs/              # параметры экспериментов
 ├── data/
 │   ├── raw/              # генерируемые исходные CSV, не коммитятся
@@ -63,10 +63,28 @@ python -m pip install -e ".[dev,analysis]"
 python -m finrisk.data.generate --seed 42 --applications 50000 --transactions 150000
 python -m finrisk.data.validate --credit data/raw/credit_applications.csv --transactions data/raw/transactions.csv
 python -m finrisk.models.train_credit --data data/raw/credit_applications.csv
+python -m finrisk.models.train_fraud --data data/raw/transactions.csv
 pytest
 ```
 
-После первой команды данные появятся в `data/raw/`:
+## Tech stack
+
+| Слой | Технологии | Как используется |
+| --- | --- | --- |
+| Язык и данные | Python 3.11+, NumPy, Pandas | генерация событий, очистка и feature engineering |
+| ML | scikit-learn | Logistic Regression, Random Forest, temporal validation, calibration |
+| Risk policy | NumPy, собственные cost-модули | выбор порогов и стоимость false positive/false negative |
+| API | FastAPI, Pydantic, Uvicorn | типизированный scoring API и Swagger |
+| Explainability | прозрачные reason codes, Model Card | причины для ручной проверки и ограничения модели |
+| Monitoring | PSI, Pandas | контроль drift между reference и current snapshot |
+| Engineering | pytest, Ruff, GitHub Actions | тесты, lint и CI на каждый push |
+| Deployment | Docker, Docker Compose | воспроизводимый запуск inference-сервиса |
+
+Важно: в проекте используются только те технологии, которые реально задействованы
+в коде. PostgreSQL и PyTorch можно добавить отдельными этапами, если появится
+необходимость в online feature store или deep-learning baseline.
+
+После команды генерации данные появятся в `data/raw/`:
 
 - `credit_applications.csv` — 50 000 заявок с бинарной целью `default_90d`;
 - `transactions.csv` — 150 000 транзакций с бинарной целью `is_fraud`.
@@ -82,7 +100,7 @@ pytest
 5. `feat: expose credit and fraud scoring through FastAPI` — завершено;
 6. `feat: add explanations and model card` — завершено;
 7. `feat: add drift monitoring and quality report` — завершено;
-8. `ci: add tests, lint and Docker deployment` — текущая часть.
+8. `ci: add tests, lint and Docker deployment` — завершено.
 
 Финальный результат должен позволять открыть Swagger, отправить JSON-заявку или транзакцию и получить не только score, но и понятное решение: `approve/review/reject` либо `allow/review/block`.
 
@@ -93,6 +111,18 @@ uvicorn finrisk.service.app:app --reload
 ```
 
 Swagger будет доступен по адресу `http://localhost:8000/docs`.
+
+Пример ответа API:
+
+```json
+{
+  "risk_score": 0.1842,
+  "decision": "review",
+  "threshold": 0.2175,
+  "model_version": "random_forest",
+  "reasons": ["высокая долговая нагрузка"]
+}
+```
 
 Для контейнерного запуска после обучения моделей:
 
