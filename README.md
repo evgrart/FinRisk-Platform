@@ -80,29 +80,10 @@ pytest
 | Engineering | pytest, Ruff, GitHub Actions | тесты, lint и CI на каждый push |
 | Deployment | Docker, Docker Compose | воспроизводимый запуск inference-сервиса |
 
-Важно: в проекте используются только те технологии, которые реально задействованы
-в коде. PostgreSQL и PyTorch можно добавить отдельными этапами, если появится
-необходимость в online feature store или deep-learning baseline.
-
 После команды генерации данные появятся в `data/raw/`:
 
 - `credit_applications.csv` — 50 000 заявок с бинарной целью `default_90d`;
 - `transactions.csv` — 150 000 транзакций с бинарной целью `is_fraud`.
-
-## План разработки и коммитов
-
-Каждый пункт — отдельный осмысленный коммит:
-
-1. `chore: scaffold FinRisk project and reproducible synthetic data` — завершено;
-2. `feat: add data validation and temporal split` — завершено;
-3. `feat: train calibrated credit risk models` — завершено;
-4. `feat: train transaction fraud detector and cost-sensitive threshold` — завершено;
-5. `feat: expose credit and fraud scoring through FastAPI` — завершено;
-6. `feat: add explanations and model card` — завершено;
-7. `feat: add drift monitoring and quality report` — завершено;
-8. `ci: add tests, lint and Docker deployment` — завершено.
-
-Финальный результат должен позволять открыть Swagger, отправить JSON-заявку или транзакцию и получить не только score, но и понятное решение: `approve/review/reject` либо `allow/review/block`.
 
 После обучения моделей сервис запускается командой:
 
@@ -132,9 +113,3 @@ docker compose up --build
 
 Каталог `artifacts/` монтируется в контейнер только для чтения, поэтому API
 не может случайно перезаписать модель во время работы.
-
-## Что положить в резюме после завершения
-
-> Разработал end-to-end платформу кредитного и транзакционного risk-scoring: leak-free temporal validation, калибровка вероятностей, cost-sensitive thresholding, explainable FastAPI inference, Docker и мониторинг drift; воспроизводимость обеспечена seed/versioned configs.
-
-Метрики в эту строку нужно подставить только после реального запуска экспериментов.
